@@ -4,6 +4,7 @@ let YandexAds = (function ()
 
     return {
 
+        DISPLAY: 'DISPLAY',
         BANNER_320x50: 'BANNER_320x50',
         BANNER_320x100: 'BANNER_320x100',
         BANNER_300x250: 'BANNER_300x250',
