@@ -83,9 +83,10 @@ public class YandexAdsPlugin extends CordovaPlugin {
         bannerSizes.put("BANNER_320x100", AdSize.BANNER_320x100);
         bannerSizes.put("BANNER_400x240", AdSize.BANNER_400x240);
         bannerSizes.put("BANNER_728x90", AdSize.BANNER_728x90);
+        bannerSizes.put("DISPLAY", AdSize.stickySize(getWidth()));
     }
 
-    public int getWidth () {
+    public static int getWidth () {
         Resources resources = Resources.getSystem();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         int width = displayMetrics.widthPixels;
@@ -456,7 +457,7 @@ public class YandexAdsPlugin extends CordovaPlugin {
 
                     mBannerAdView = new BannerAdView(self.cordova.getActivity());
                     mBannerAdView.setAdUnitId(bannerBlockId);
-                    mBannerAdView.setAdSize(AdSize.stickySize(self.getWidth()));
+                    mBannerAdView.setAdSize(bannerSizes.get(bannerSize));
                     bannerShown = false;
 
                     final AdRequest adRequest = new AdRequest.Builder().build();
