@@ -108,7 +108,7 @@ let YandexAds = (function ()
         },
 
         /**
-         * Loads interstitial
+         * Loads banner
          */
         loadBanner: function loadBanner(params)
         {
