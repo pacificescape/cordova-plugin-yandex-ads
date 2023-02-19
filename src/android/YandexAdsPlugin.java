@@ -1,44 +1,38 @@
 package io.luzh.cordova.plugin;
 
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.text.TextUtils;
-import android.os.AsyncTask;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Gravity;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.RelativeLayout;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.yandex.mobile.ads.banner.AdSize;
+import com.yandex.mobile.ads.banner.BannerAdEventListener;
+import com.yandex.mobile.ads.banner.BannerAdView;
+import com.yandex.mobile.ads.common.AdRequest;
+import com.yandex.mobile.ads.common.AdRequestError;
+import com.yandex.mobile.ads.common.ImpressionData;
+import com.yandex.mobile.ads.common.InitializationListener;
+import com.yandex.mobile.ads.common.MobileAds;
+import com.yandex.mobile.ads.interstitial.InterstitialAd;
+import com.yandex.mobile.ads.interstitial.InterstitialAdEventListener;
+import com.yandex.mobile.ads.rewarded.Reward;
+import com.yandex.mobile.ads.rewarded.RewardedAd;
+import com.yandex.mobile.ads.rewarded.RewardedAdEventListener;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
-import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.yandex.mobile.ads.banner.BannerAdView;
-import com.yandex.mobile.ads.banner.AdSize;
-import com.yandex.mobile.ads.banner.BannerAdEventListener;
-import com.yandex.mobile.ads.common.ImpressionData;
-import com.yandex.mobile.ads.common.InitializationListener;
-import com.yandex.mobile.ads.common.MobileAds;
-import com.yandex.mobile.ads.common.AdRequest;
-import com.yandex.mobile.ads.common.AdRequestError;
-import com.yandex.mobile.ads.rewarded.RewardedAd;
-import com.yandex.mobile.ads.rewarded.RewardedAdEventListener;
-import com.yandex.mobile.ads.rewarded.Reward;
-
-import com.yandex.mobile.ads.interstitial.InterstitialAd;
-import com.yandex.mobile.ads.interstitial.InterstitialAdEventListener;
-
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -89,6 +83,15 @@ public class YandexAdsPlugin extends CordovaPlugin {
         bannerSizes.put("BANNER_320x100", AdSize.BANNER_320x100);
         bannerSizes.put("BANNER_400x240", AdSize.BANNER_400x240);
         bannerSizes.put("BANNER_728x90", AdSize.BANNER_728x90);
+    }
+
+    public int getWidth () {
+        Resources resources = Resources.getSystem();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        int width = displayMetrics.widthPixels;
+
+        Log.e("getWidth", String.valueOf(width));
+        return width;
     }
 
     @Override
@@ -454,7 +457,7 @@ public class YandexAdsPlugin extends CordovaPlugin {
 
                     mBannerAdView = new BannerAdView(self.cordova.getActivity());
                     mBannerAdView.setAdUnitId(bannerBlockId);
-                    mBannerAdView.setAdSize(bannerSizes.get(bannerSize));
+                    mBannerAdView.setAdSize(AdSize.stickySize(self.getWidth()));
                     bannerShown = false;
 
                     final AdRequest adRequest = new AdRequest.Builder().build();
