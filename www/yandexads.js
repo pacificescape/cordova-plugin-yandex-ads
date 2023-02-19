@@ -114,7 +114,7 @@ let YandexAds = (function ()
         {
             params = defaults(params, {});
 
-            callPlugin('loadBanner', [], params.onSuccess, params.onFailure);
+            callPlugin('loadBanner', [params.bannerSize], params.onSuccess, params.onFailure);
         },
 
         /**
