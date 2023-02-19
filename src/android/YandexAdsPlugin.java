@@ -90,7 +90,6 @@ public class YandexAdsPlugin extends CordovaPlugin {
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         int width = displayMetrics.widthPixels;
 
-        Log.e("getWidth", String.valueOf(width));
         return width;
     }
 
