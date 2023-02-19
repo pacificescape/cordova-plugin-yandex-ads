@@ -449,6 +449,13 @@ public class YandexAdsPlugin extends CordovaPlugin {
 
     private void loadBannerAction(JSONArray args, final CallbackContext callbackContext) {
         final YandexAdsPlugin self = this;
+
+        try {
+            bannerSize = args.getString(0);
+        } catch (JSONException e) {
+            Log.e("loadBannerAction", e.getMessage());
+        }
+        
         cordova.getActivity().runOnUiThread(new Runnable() {
 
             public void run() {
@@ -474,6 +481,7 @@ public class YandexAdsPlugin extends CordovaPlugin {
                         public void onAdFailedToLoad(@NonNull AdRequestError adRequestError) {
                             Log.d(TAG, EVENT_BANNER_FAILED_TO_LOAD + ": " + adRequestError.getDescription());
                             self.emitWindowEvent(EVENT_BANNER_FAILED_TO_LOAD);
+                            callbackContext.error(adRequestError.getDescription());
                         }
 
                         @Override
