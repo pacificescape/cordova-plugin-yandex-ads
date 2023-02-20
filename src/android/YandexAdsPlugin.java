@@ -475,6 +475,7 @@ public class YandexAdsPlugin extends CordovaPlugin {
                             bannerLoaded = true;
                             Log.d(TAG, EVENT_BANNER_DID_LOAD);
                             self.emitWindowEvent(EVENT_BANNER_DID_LOAD);
+                            callbackContext.success();
                         }
 
                         @Override
@@ -507,7 +508,7 @@ public class YandexAdsPlugin extends CordovaPlugin {
 
                     mBannerAdView.loadAd(adRequest);
                 }
-                callbackContext.success();
+//                 callbackContext.success();
             }
         });
     }
