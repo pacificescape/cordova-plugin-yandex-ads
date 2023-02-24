@@ -381,16 +381,23 @@ public class YandexAdsPlugin extends CordovaPlugin {
                     if (bannerOverlap) {
                         RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(
                                 RelativeLayout.LayoutParams.MATCH_PARENT,
-                                RelativeLayout.LayoutParams.WRAP_CONTENT);
+                                RelativeLayout.LayoutParams.WRAP_CONTENT
+                        );
                         params2.addRule(bannerAtTop ? RelativeLayout.ALIGN_PARENT_TOP : RelativeLayout.ALIGN_PARENT_BOTTOM);
 
                         RelativeLayout adViewLayout = new RelativeLayout(cordova.getActivity());
-                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                                RelativeLayout.LayoutParams.MATCH_PARENT,
+                                RelativeLayout.LayoutParams.MATCH_PARENT
+                        );
                         try {
                             ((ViewGroup)(((View)webView.getClass().getMethod("getView").invoke(webView)).getParent())).addView(adViewLayout, params);
                         } catch (Exception e) {
                             ((ViewGroup) webView).addView(adViewLayout, params);
                         }
+
+                        mBannerAdView.setScaleX((float) self.getWidth() / AdSize.stickySize(320).getWidthInPixels(cordova.getContext()));
+                        mBannerAdView.setScaleY((float) self.getWidth() / AdSize.stickySize(320).getWidthInPixels(cordova.getContext()));
 
                         adViewLayout.addView(mBannerAdView, params2);
                         adViewLayout.bringToFront();
